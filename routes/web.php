@@ -24,14 +24,27 @@ Route::get('/knowledge-hub',[SessionController::class, 'knowledgeHub'])->name('j
 Route::get('/',[PagesController::class, 'index'])->name('home');
 Route::get('user/login',[PagesController::class, 'login'])->name('user.login');
 Route::get('user/register',[PagesController::class, 'register'])->name('user.register');
-Route::get('book/{slug}',[PagesController::class,'bookDetails'])->name('home.book.details');
+//user details
+Route::get('user-profile/{id}/{slug}',[PagesController::class,'userDetails'])->name('home.user.details');
+//book details
+Route::get('book/{id}/{slug}',[PagesController::class,'bookDetails'])->name('home.book.details');
+// video route
+Route::get('video/{id}/{slug}',[PagesController::class,'videoDetails'])->name('home.video.details');
+// audio route
+Route::get('audio/{id}/{slug}',[PagesController::class,'audioDetails'])->name('home.audio.details');
 //channel 
 Route::get('channel/{id}/{slug}',[PagesController::class,'channel'])->name('home.channel.details');
+//podcast
+Route::get('podcast/{id}/{slug}',[PagesController::class,'podcast'])->name('home.podcast.details');
+//digital store
+Route::get('digital-store/{id}/{slug}',[PagesController::class,'digitalStore'])->name('home.digitalstore.details');
+//library
+Route::get('library/{id}/{slug}',[PagesController::class,'library'])->name('home.library.details');
+//digital Store
 Route::get('download/{slug}',[BookController::class,'bookDownload'])->name('book.download');
 Route::get('video/download/{slug}',[VideoController::class,'vidoeDownload'])->name('video.download');
 Route::post('store',[CategoryController::class,'store']);
-// video route
-Route::get('video/{slug}',[PagesController::class,'videoDetails'])->name('home.video.details');
+
 
 //instructor profile
 Route::get('admin-profile/{id}',[InstructorContrller::class,'show'])->name('instructor.show');

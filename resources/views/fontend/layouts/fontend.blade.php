@@ -5,7 +5,7 @@
 	@include('fontend.inc.css')
 	@yield("css")
 </head>
-<body class="light">
+<body class="light @yield('single-video')">
 	@include('fontend.inc.top-bar')
 	@yield("wrapper")
 	@include('fontend.inc.footer')

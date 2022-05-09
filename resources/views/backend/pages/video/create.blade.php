@@ -126,6 +126,27 @@ Vidoe
 	                                    <label for="dlink">Git-hub Link</label>
 	                                    <input type="url" name="link_git_hub" class="form-control" id="dlink" placeholder="" value="" >
 	                                </div>
+	                                <div class="col-md-12 mb-4">
+		                                    	<label>Publish</label>
+		                                        <div class="n-chk">
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="hideChannel()" value="0" checked>
+												      <span class="new-control-indicator"></span>Publish On Now How
+												    </label>
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="showChannel()" value="1">
+												      <span class="new-control-indicator"></span>Publish On Now How & Flexflix
+												    </label>
+												</div>
+	                                    	</div>
+	                                    	<div class="col-md-12 mb-4" id="channel">
+	                                        <label for="title">Channel Name</label>
+	                                        <select class="form-control  basic"  id="id" name="channel_id">
+    													    @foreach(App\Models\Channel::get() as $channel)
+													<option value="{{$channel->id}}">{{$channel->name}}</option>
+													@endforeach
+											</select>
+										</div>
 	                           		<div class="col-md-12 mb-4">
 											<div class="">                                
 			                                    <div class="row">
@@ -188,6 +209,7 @@ Vidoe
     <script type="text/javascript">
     	$('#price').hide();
     	$('#dprice').hide();
+    	$('#channel').hide();
     	function showPrice(){
     		$('#price').show();
     		$('#dprice').show();
@@ -195,6 +217,14 @@ Vidoe
     	function hidePrice(){
     		$('#price').hide();
     		$('#dprice').hide();
+    	}
+    	function showChannel(){
+    		$('#channel').show();
+    		
+    	}
+    	function hideChannel(){
+    		
+    		$('#channel').hide();
     	}
     </script>
 <script type="text/javascript">

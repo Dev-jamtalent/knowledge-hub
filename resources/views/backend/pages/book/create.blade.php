@@ -118,6 +118,27 @@ Template
 	                                    <label for="dlink">Dropbox Link</label>
 	                                    <input type="url" name="link_dropbox" class="form-control" id="dlink" placeholder="" value="" >
 	                                </div>
+	                                <div class="col-md-12 mb-4">
+		                                    	<label>Publish</label>
+		                                        <div class="n-chk">
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="hideLibrary()" value="0" checked>
+												      <span class="new-control-indicator"></span>Publish On Now How
+												    </label>
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="showLibrary()" value="1">
+												      <span class="new-control-indicator"></span>Publish On Now How & Flexflix
+												    </label>
+												</div>
+	                                    	</div>
+	                                    	<div class="col-md-12 mb-4" id="library">
+	                                        <label for="title">Library Name</label>
+	                                        <select class="form-control  basic"  id="id" name="library_id">
+    													    @foreach(App\Models\Library::get() as $library)
+													<option value="{{$library->id}}">{{$library->name}}</option>
+													@endforeach
+											</select>
+										</div>
 	                           		<div class="col-md-12 mb-4">
 											<div class="">                                
 			                                    <div class="row">
@@ -180,6 +201,7 @@ Template
     <script type="text/javascript">
     	$('#price').hide();
     	$('#dprice').hide();
+    	$('#library').hide();
     	function showPrice(){
     		$('#price').show();
     		$('#dprice').show();
@@ -187,6 +209,14 @@ Template
     	function hidePrice(){
     		$('#price').hide();
     		$('#dprice').hide();
+    	}
+    	function showLibrary(){
+    		$('#library').show();
+    		
+    	}
+    	function hideLibrary(){
+    		
+    		$('#library').hide();
     	}
     </script>
 <script type="text/javascript">

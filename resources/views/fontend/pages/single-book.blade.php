@@ -1,40 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.png">
 
-    <title>Circle Video | Single video</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('fontend') }}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- player -->
-    <link rel="stylesheet" href="{{ asset('fontend') }}/assets/js/vendor/player/johndyer-mediaelement-89793bc/build/mediaelementplayer.min.css" />
-
-    <!-- Theme CSS -->
-    <link href="{{ asset('fontend') }}/assets/js/vendor/magnificPopup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="{{ asset('fontend') }}/assets/css/style.css" rel="stylesheet">
-
-    <link href="{{ asset('fontend') }}/assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{ asset('fontend') }}/assets/css/font-circle-video.css" rel="stylesheet">
-
-    <!-- font-family: 'Hind', sans-serif; -->
-    <link href='https://fonts.googleapis.com/css?family=Hind:400,300,500,600,700|Hind+Guntur:300,400,500,700' rel='stylesheet' type='text/css'>
-</head>
-
-<body class="single-video light">
-
-@php
-$instructor = App\Models\Instructor::where('id',$book->instructor_id)->first();
-$bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
-@endphp
-@include('fontend.inc.top-bar')
+@extends("fontend.layouts.fontend")
+@section('single-video')
+    single-video
+@endsection
+@section("wrapper")
+<div class="container-fluid hidden-xs">
+    <div class="row">
+        <div class="navbar-container2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1 col-sm-2 hidden-xs">
+                        <div class="goto">
+                            Go to:
+                        </div>
+                    </div>
+                    <div class="col-lg-3  col-sm-10 col-xs-12">
+                        <div class="h-icons">
+                            <a href="#"><i class="cv cvicon-cv-liked" data-toggle="tooltip" data-placement="top" title="Liked Videos"></i></a>
+                            <a href="#"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
+                            <a href="#"><i class="cv cvicon-cv-play-circle" data-toggle="tooltip" data-placement="top" title="Saved Playlist"></i></a>
+                            <a href="#"><i class="cv cvicon-cv-purchased" data-toggle="tooltip" data-placement="top" title="Purchased Videos"></i></a>
+                            <a href="#"><i class="cv cvicon-cv-history" data-toggle="tooltip" data-placement="top" title="History"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-sm-10 hidden-xs">
+                        <div class="h-resume">
+                            <div class="play-icon">
+                                <a href="#"><i class="cv cvicon-cv-play"></i></a>
+                            </div>
+                            Resume:  <span class="color-default">Daredevil Season 2 : Episode 6 </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-sm-2 hidden-xs">
+                        <div class="h-grid">
+                            <a href="#"><i class="cv cvicon-cv-grid-view"></i></a>
+                            <a href="#"><i class="cv cvicon-cv-list-view"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /goto -->
 <div class="content-wrapper">
     <div class="container">
         <div class="row">
@@ -54,9 +62,9 @@ $bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
                 </div>
                 <div class="author">
                     <div class="author-head">
-                        <a href="#"><img src="{{ asset($instructor->user->profile_photo_path) }}" alt="" class="sv-avatar"></a>
+                        <a href="#"><img src="{{ asset($book->user->profile_photo_path) }}" alt="" class="sv-avatar"></a>
                         <div class="sv-name">
-                            <div><a href="{{route('instructor.show',$instructor->id)}}">{{$instructor->user->name}}</a> </div>
+                            <div><a href="">{{$book->user->name}}</a> </div>
                             <div class="c-sub hidden-xs">
                                 <div class="c-f">
                                    Like
@@ -460,13 +468,13 @@ $bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
                                     <div class="h-video row">
                                         <div class="col-sm-12 col-xs-6">
                                             <div class="v-img">
-                                                <a href="{{route('home.book.details',$insBook->slug)}}"><img src="{{asset($insBook->image)}}" alt=""></a>
+                                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}"><img src="{{asset($insBook->image)}}" alt=""></a>
                                                 
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-xs-6">
                                             <div class="v-desc">
-                                                <a href="{{route('home.book.details',$insBook->slug)}}">{{$insBook->title}}</a>
+                                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}">{{$insBook->title}}</a>
                                             </div>
                                             <div class="v-views">
                                                 Free
@@ -621,17 +629,17 @@ $bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
                     <div class="clearfix"></div>
                 </div>
                 <div class="list">
-                    @forelse(App\Models\Book::where('instructor_id',$book->instructor_id)->where('id', '!=' ,$book->id)->get() as $insBook)
+                    @forelse(App\Models\Book::where('user_id',$book->user_id)->where('id', '!=' ,$book->id)->get() as $insBook)
                     <div class="h-video row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-img">
-                                <a href="{{route('home.book.details',$insBook->slug)}}"><img src="{{asset($insBook->image)}}" alt=""></a>
+                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}"><img src="{{asset($insBook->image)}}" alt=""></a>
                                 
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-desc">
-                                <a href="{{route('home.book.details',$insBook->slug)}}">{{$insBook->title}}</a>
+                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}">{{$insBook->title}}</a>
                             </div>
                             <div class="v-views">
                                 Free
@@ -670,13 +678,13 @@ $bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
                     <div class="h-video row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-img">
-                                <a href="{{route('home.book.details',$insBook->slug)}}"><img src="{{asset($insBook->image)}}" alt=""></a>
+                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}"><img src="{{asset($insBook->image)}}" alt=""></a>
                                 
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-desc">
-                                <a href="{{route('home.book.details',$insBook->slug)}}">{{$insBook->title}}</a>
+                                <a href="{{route('home.book.details',[$insBook->id,$insBook->slug])}}">{{$insBook->title}}</a>
                             </div>
                             <div class="v-views">
                                 Free
@@ -699,20 +707,6 @@ $bookCount = App\Models\Book::where('id',$book->instructor_id)->count();
     </div>
 </div>
 
-<!-- footer -->
-@include('fontend.inc.footer')
-<!-- /footer -->
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ asset('fontend') }}/assets/js/jquery.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/js/jquery-migrate-1.4.1.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/bootstrap/js/popper.js"></script>
-<script src="{{ asset('fontend') }}/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/js/vendor/clipboard/dist/clipboard.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/js/vendor/player/johndyer-mediaelement-89793bc/build/mediaelement-and-player.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/js/vendor/magnificPopup/dist/jquery.magnific-popup.min.js"></script>
-<script src="{{ asset('fontend') }}/assets/js/custom.js"></script>
+@endsection
 
-</body>
-</html>
+

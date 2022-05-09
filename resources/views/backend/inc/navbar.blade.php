@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="{{route('home')}}" class="nav-link">  @if (session()->get('jam') == 'jamFlix') Flax Flix @else Now How @endif </a>
+                    <a href="{{route('home')}}" class="nav-link">  @if (session()->get('jam') == 'jamFlix') Flexflix @else Now How @endif </a>
                 </li>
             </ul>
 

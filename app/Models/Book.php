@@ -18,4 +18,9 @@ class Book extends Model
     {
         return $this->hasMany(BookTag::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

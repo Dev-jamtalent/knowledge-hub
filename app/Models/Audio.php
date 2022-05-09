@@ -13,4 +13,8 @@ class Audio extends Model
     {
         return $this->hasMany(AudioTag::class);
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

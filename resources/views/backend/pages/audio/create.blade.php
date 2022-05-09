@@ -137,25 +137,26 @@ Vidoe
 		                                        </div>
                                 			</div>
                                 			<div class="col-md-12 mb-4">
-	                                    	<label>Publish</label>
-	                                        <div class="n-chk">
-										    <label class="new-control new-radio radio-primary">
-										      <input type="radio" class="new-control-input" name="price_type" onclick="hidePodcast()" value="0" checked>
-										      <span class="new-control-indicator"></span>Publish On Knowledge Hub
-										    </label>
-										    <label class="new-control new-radio radio-primary">
-										      <input type="radio" class="new-control-input" name="price_type" onclick="showPodcast()" value="1">
-										      <span class="new-control-indicator"></span>Publish On Knowledge Hub & jamflix
-										    </label>
-										</div>
-	                                    </div>
+		                                    	<label>Publish</label>
+		                                        <div class="n-chk">
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="hidePodcast()" value="0" checked>
+												      <span class="new-control-indicator"></span>Publish On Now How
+												    </label>
+												    <label class="new-control new-radio radio-primary">
+												      <input type="radio" class="new-control-input" name="podcast" onclick="showPodcast()" value="1">
+												      <span class="new-control-indicator"></span>Publish On Now How & Flexflix
+												    </label>
+												</div>
+	                                    	</div>
 	                                    <div class="col-md-12 mb-4" id="podcast">
 	                                        <label for="title">Podcast Name</label>
-	                                        <select class="form-control  basic"  id="id" name="category_id">
-    													    @foreach(App\Models\UserAudioCategory::get() as $cat)
-													<option value="{{$cat->id}}">{{$cat->category_name}}</option>
+	                                        <select class="form-control  basic"  id="id" name="podcast_id">
+    													    @foreach(App\Models\Podcast::get() as $podcast)
+													<option value="{{$podcast->id}}">{{$podcast->name}}</option>
 													@endforeach
-											</select>	                                    </div>
+											</select>
+										</div>
 	                                    
 	                                    </div>
 	                                </div>

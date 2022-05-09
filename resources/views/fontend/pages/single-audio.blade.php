@@ -1,4 +1,3 @@
-
 @extends("fontend.layouts.fontend")
 @section('single-video')
     single-video
@@ -48,13 +47,13 @@
         <div class="row">
             <div class="col-lg-8 col-xs-12 col-sm-12">
                 <div class="sv-video">
-                    <img src="{{ asset($video->image) }}" class="img-fluid"style="width:100%;height:100%;"  width="100%" height="100%" >
-                    <!-- <video poster="{{ asset($video->image) }}" style="width:100%;height:100%;" controls="controls" width="100%" height="100%">
+                    <img src="{{ asset($audio->image) }}" class="img-fluid"style="width:100%;height:100%;"  width="100%" height="100%" >
+                    <!-- <video poster="{{ asset($audio->image) }}" style="width:100%;height:100%;" controls="controls" width="100%" height="100%">
                         <source src="{{ asset('fontend') }}/assets/videos/video-1.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
                     </video> -->
                     <!-- <span class="sv-play"><i class="cv cvicon-cv-play"></i></span> -->
                 </div>
-                <h1><a href="#">{{$video->title}}</a></h1>
+                <h1><a href="#">{{$audio->title}}</a></h1>
                 <div class="acide-panel acide-panel-top">
                     <a href="#"><i class="cv cvicon-cv-watch-later" data-toggle="tooltip" data-placement="top" title="Watch Later"></i></a>
                     <a href="#"><i class="cv cvicon-cv-liked" data-toggle="tooltip" data-placement="top" title="Liked"></i></a>
@@ -62,9 +61,10 @@
                 </div>
                 <div class="author">
                     <div class="author-head">
-                        <a href="#"><img src="{{ asset($video->user->profile_photo_path) }}" alt="" class="sv-avatar"></a>
+                        <a href="{{route('home.user.details',[$audio->user->id,$audio->user->slug])}}"><img src="{{ asset($audio->user->profile_photo_path) }}
+                            " alt="" class="sv-avatar"></a>
                         <div class="sv-name">
-                            <div><a href="">{{$video->user->name}}</a> </div>
+                            <div><a href="">{{$audio->user->name}}</a> </div>
                             <div class="c-sub hidden-xs">
                                 <div class="c-f">
                                    Like
@@ -107,7 +107,7 @@
                                 <i class="cv cvicon-cv-share" data-toggle="tooltip" data-placement="top" title="Share"></i>
                                 <span>Share</span>
                             </a>
-                            <a href="{{route('book.download',$video->slug)}}" data-tab="tab-3">
+                            <a href="{{route('book.download',$audio->slug)}}" data-tab="tab-3">
                                 <i class="cv cvicon-cv-download" data-toggle="tooltip" data-placement="top" title="Download"></i>
                                 <span>Download</span>
                             </a>
@@ -137,11 +137,11 @@
                                     </p>
 
                                     <h4>About :</h4>
-                                    <p>{!!$video->description!!}</p>
+                                    <p>{!!$audio->description!!}</p>
 
                                     <h4>Tags :</h4>
                                     <p class="sv-tags">
-                                        @foreach($video->videoTags as $tag_name)
+                                        @foreach($audio->audioTags as $tag_name)
                                         <span><a href="#">{{$tag_name->tag_name}}</a></span>
                                         @endforeach
                                     </p>
@@ -149,7 +149,7 @@
                                     <div class="row date-lic">
                                         <div class="col-xs-6">
                                             <h4>Release Date:</h4>
-                                            <p>{{$video->created_at->diffForHumans()}}</p>
+                                            <p>{{$audio->created_at->diffForHumans()}}</p>
                                         </div>
                                         <!-- <div class="col-xs-6 ta-r">
                                             <h4>License:</h4>
@@ -285,7 +285,7 @@
                             <div class="tab-3">
                                 <h4>Download:</h4>
                                 <div class="tags-type2">
-                                    <a href="{{route('book.download',$video->slug)}}"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>PDF</a>
+                                    <a href="{{route('book.download',$audio->slug)}}"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>PDF</a>
                                     <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>WORD</a>
                                     <a href="#"><i class="fa fa-long-arrow-down" aria-hidden="true"></i>PNG</a>
                                 </div>
@@ -463,23 +463,23 @@
                         </div>
                         <div class="similar-v single-video video-mobile-02">
                             <div class="row">
-                                @forelse(App\Models\Video::where('title', 'LIKE' ,$video->title)->where('id', '!=' ,$video->id)->get()->take(3) as $insVideo)
+                                @forelse(App\Models\Audio::where('title', 'LIKE' ,$audio->title)->where('id', '!=' ,$audio->id)->get()->take(3) as $insAudio)
                                 <div class="col-lg-3 col-sm-6 col-xs-12">
                                     <div class="h-video row">
                                         <div class="col-sm-12 col-xs-6">
                                             <div class="v-img">
-                                                <a href="{{route('home.video.details',[$insBook->id,$insBook->slug])}}"><img src="{{asset($insBook->image)}}" alt=""></a>
+                                                <a href="{{route('home.audio.details',[$insAudio->id,$insAudio->slug])}}"><img src="{{asset($insAudio->image)}}" alt=""></a>
                                                 
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-xs-6">
                                             <div class="v-desc">
-                                                <a href="{{route('home.video.details',[$insVideo->id,$insVideo->slug])}}">{{$insVideo->title}}</a>
+                                                <a href="{{route('home.audio.details',[$insAudio->id,$insVideo->slug])}}">{{$insAudio->title}}</a>
                                             </div>
                                             <div class="v-views">
                                                 Free
                                             </div>
-                                            <div class="v-views"> <span style="color: blue;">{{$insVideo->download}} Download</span> </div>
+                                            <div class="v-views"> <span style="color: blue;">{{$insAudio->download}} Download</span> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -629,27 +629,27 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="list">
-                    @forelse(App\Models\Video::where('user_id',$video->user_id)->where('id', '!=' ,$video->id)->get() as $insVideo)
+                    @forelse(App\Models\Audio::where('user_id',$audio->user_id)->where('id', '!=' ,$audio->id)->get() as $insAudio)
                     <div class="h-video row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-img">
-                                <a href="{{route('home.video.details',[$insVideo->id,$insVideo->slug])}}"><img src="{{asset($insVideo->image)}}" alt=""></a>
+                                <a href="{{route('home.audio.details',[$insAudio->id,$insAudio->slug])}}"><img src="{{asset($insAudio->image)}}" alt=""></a>
                                 
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-desc">
-                                <a href="{{route('home.video.details',[$insVideo->id,$insVideo->slug])}}">{{$insVideo->title}}</a>
+                                <a href="{{route('home.audio.details',[$insAudio->id,$insAudio->slug])}}">{{$insAudio->title}}</a>
                             </div>
                             <div class="v-views">
                                 Free
                             </div>
-                            <div class="v-views"> <span style="color: blue;">{{$insVideo->download}} Download</span> </div>
+                            <div class="v-views"> <span style="color: blue;">{{$insAudio->download}} Download</span> </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     @empty
-                    <h4>No video found</h4>
+                    <h4>No Audio found</h4>
                     @endforelse
 
                    
@@ -666,7 +666,7 @@
                 <!-- Recomended Videos -->
                 <div class="caption">
                     <div class="left">
-                        <a href="#">Recomended Video</a>
+                        <a href="#">Recomended Audio</a>
                     </div>
                     <!-- <div class="right">
                         <a href="#">Autoplay <i class="cv cvicon-cv-btn-off"></i></a>
@@ -674,22 +674,22 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="list">
-                    @forelse(App\Models\Book::where('title', 'LIKE' ,$video->title)->orWhere('id', 'LIKE' ,$video->id)->where('id', '!=' ,$video->id)->get()->take(10) as $insVideo)
+                    @forelse(App\Models\Audio::where('title', 'LIKE' ,$audio->title)->orWhere('id', 'LIKE' ,$audio->id)->where('id', '!=' ,$audio->id)->get()->take(10) as $insAudio)
                     <div class="h-video row">
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-img">
-                                <a href="{{route('home.video.details',[$insVideo->id,$insVideo->slug])}}"><img src="{{asset($insVideo->image)}}" alt=""></a>
+                                <a href="{{route('home.audio.details',[$insAudio->id,$insAudio->slug])}}"><img src="{{asset($insAudio->image)}}" alt=""></a>
                                 
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="v-desc">
-                                <a href="{{route('home.video.details',[$insVideo->id,$insVideo->slug])}}">{{$insVideo->title}}</a>
+                                <a href="{{route('home.audio.details',[$insAudio->id,$insAudio->slug])}}">{{$insAudio->title}}</a>
                             </div>
                             <div class="v-views">
                                 Free
                             </div>
-                            <div class="v-views"> <span style="color: blue;">{{$insVideo->download}} Download</span> </div>
+                            <div class="v-views"> <span style="color: blue;">{{$insAudio->download}} Download</span> </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -708,8 +708,3 @@
 </div>
 
 @endsection
-
-
-
-
-

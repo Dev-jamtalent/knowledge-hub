@@ -171,7 +171,7 @@
                                 
                                 <p class="card-text t"> Maecenas nec mi vel lacus condimentum rhoncus dignissim egestas orci. Integer blandit porta placerat. Vestibulum in ultricies. </p>
 
-                               <a href="{{route('jam.flix')}}" class="btn btn-danger">Flax Flix</a>
+                               <a href="{{route('jam.flix')}}" class="btn btn-danger">Flexflix</a>
                                 
                             </div>
                         </div>

@@ -88,11 +88,11 @@
                             <div class="col-lg-3 col-sm-6 ">
                                 <div class="b-video">
                                     <div class="v-img">
-                                        <a href="{{route('home.book.details',$librariy->slug)}}"><img src="{{ asset($librariy->image) }}" alt=""></a>
+                                        <a href="{{route('home.library.details',[$librariy->id,$librariy->slug])}}"><img src="{{ asset($librariy->image) }}" alt=""></a>
                                         
                                     </div>
                                     <div class="v-desc">
-                                        <a href="{{route('home.book.details',$librariy->slug)}}">{{$librariy->name}}</a>
+                                        <a href="{{route('home.library.details',[$librariy->id,$librariy->slug])}}">{{$librariy->name}}</a>
                                     </div>
                                     <div class="v-views">
                                          Downloads. 
@@ -199,11 +199,11 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="b-video">
                                     <div class="v-img">
-                                        <a href=""><img src="{{ asset($podcast->image) }}" alt=""></a>
+                                        <a href="{{route('home.podcast.details',[$podcast->id,$podcast->slug])}}"><img src="{{ asset($podcast->image) }}" alt=""></a>
                                         
                                     </div>
                                     <div class="v-desc">
-                                        <a href="">{{$podcast->name}}</a>
+                                        <a href="{{route('home.podcast.details',[$podcast->id,$podcast->slug])}}">{{$podcast->name}}</a>
                                     </div>
                                     
                                 </div>
@@ -252,11 +252,11 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="b-video">
                                     <div class="v-img">
-                                        <a href=""><img src="{{ asset($digitalStore->image) }}" alt=""></a>
+                                        <a href="{{route('home.digitalstore.details',[$digitalStore->id,$digitalStore->slug])}}"><img src="{{ asset($digitalStore->image) }}" alt=""></a>
                                         
                                     </div>
                                     <div class="v-desc">
-                                        <a href="">{{$digitalStore->name}}</a>
+                                        <a href="{{route('home.digitalstore.details',[$digitalStore->id,$digitalStore->slug])}}">{{$digitalStore->name}}</a>
                                     </div>
                                     
                                 </div>
