@@ -30,9 +30,7 @@
 
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
-
             @yield('wrapper')
-            @include('backend.inc.footer')
         </div>
         <!--  END CONTENT PART  -->
 

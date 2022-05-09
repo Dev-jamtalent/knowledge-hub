@@ -4,12 +4,12 @@
 
             <ul class="navbar-item theme-brand flex-row  text-center">
                 <li class="nav-item theme-logo">
-                    <a href="index.html">
-                        <img src="assets/img/90x90.jpg" class="navbar-logo" alt="logo">
+                    <a href="{{route('home')}}">
+                        <img src="{{ asset('backend') }}/assets/img/K-nowhow FAVICON.jpg" class="navbar-logo" alt="logo">
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="{{route('home')}}" class="nav-link"> Knowledge Hub </a>
+                    <a href="{{route('home')}}" class="nav-link">  @if (session()->get('jam') == 'jamFlix') Flax Flix @else Now How @endif </a>
                 </li>
             </ul>
 

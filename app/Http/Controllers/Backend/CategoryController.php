@@ -232,7 +232,7 @@ class CategoryController extends Controller
     }
 
     public function audioCategoryAjax($id){
-        $data = UserAudioSubCategory::where('user_post_cat_id',$id)->get();
+        $data = UserAudioSubCategory::where('user_audio_cat_id',$id)->get();
         return response()->json($data);
     }
 

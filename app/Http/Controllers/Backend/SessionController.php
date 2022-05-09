@@ -10,7 +10,7 @@ class SessionController extends Controller
     public function jamFlix(){
         session()->get('jam');
         session()->forget('jam');
-        Session::put('jam','knowledgeHub');
+        Session::put('jam','jamFlix');
         
         return redirect()->back();
     }

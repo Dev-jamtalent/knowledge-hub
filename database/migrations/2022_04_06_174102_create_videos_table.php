@@ -16,6 +16,7 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('channel_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
@@ -35,6 +36,7 @@ class CreateVideosTable extends Migration
             $table->string('language')->nullable();
             $table->string('slug')->unique();
             $table->string('download')->default(0);
+            
             $table->timestamps();
         });
     }

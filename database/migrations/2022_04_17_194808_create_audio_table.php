@@ -16,6 +16,7 @@ class CreateAudioTable extends Migration
         Schema::create('audio', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('podcast_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

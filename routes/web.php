@@ -8,6 +8,10 @@ use App\Http\Controllers\Backend\TagComtroller;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\BookController;
 use App\Http\Controllers\Backend\SessionController;
+use App\Http\Controllers\Backend\ChannelContrller;
+use App\Http\Controllers\Backend\DigitalStoreController;
+use App\Http\Controllers\Backend\LibraryController;
+use App\Http\Controllers\Backend\PodcastController;
 use App\Http\Controllers\Fontend\PagesController;
 use App\Http\Controllers\Instructor\InstructorContrller;
 use App\Http\Controllers\Backend\VideoController;
@@ -21,6 +25,8 @@ Route::get('/',[PagesController::class, 'index'])->name('home');
 Route::get('user/login',[PagesController::class, 'login'])->name('user.login');
 Route::get('user/register',[PagesController::class, 'register'])->name('user.register');
 Route::get('book/{slug}',[PagesController::class,'bookDetails'])->name('home.book.details');
+//channel 
+Route::get('channel/{id}/{slug}',[PagesController::class,'channel'])->name('home.channel.details');
 Route::get('download/{slug}',[BookController::class,'bookDownload'])->name('book.download');
 Route::get('video/download/{slug}',[VideoController::class,'vidoeDownload'])->name('video.download');
 Route::post('store',[CategoryController::class,'store']);
@@ -73,6 +79,8 @@ Route::group(['prefix'=>'admin','middleware' =>['instructor','auth']], function(
 Route::group(['prefix'=>'user','middleware' =>['user','auth']], function(){
     Route::get('dashboard',[UserContrller::class,'index'])->name('user.dashboard');
     Route::get('details',[UserContrller::class,'userDetails'])->name('user.details');
+
+    Route::get('/now-how',[UserContrller::class, 'nowhow'])->name('now.how');
     Route::get('account/setting',[UserContrller::class,'accountSetting'])->name('user.setting');
     Route::get('change-password',[UserContrller::class,'changePassword'])->name('user.change.password');
     Route::post('update-password',[UserContrller::class,'updatePassword'])->name('user.update.password');
@@ -240,6 +248,43 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth']], function(){
             Route::get('all',[TagComtroller::class,'userPostAllTags']);  
         }); 
     }); 
+
+    Route::group(['prefix'=>'flax-flix'],function(){
+        Route::group(['prefix'=>'channel'],function(){
+            Route::get('manage',[ChannelContrller::class,'channelManage'])->name('channel.manage');
+            Route::post('store',[ChannelContrller::class,'userChannelStore']);
+            Route::get('all',[ChannelContrller::class,'userChannelAll']);
+            Route::get('add-video/{id}',[ChannelContrller::class,'addVideoChannel'])->name('channel.add.video');
+            Route::get('all-video/{id}',[ChannelContrller::class,'allVideoChannel'])->name('channel.all.video');
+            Route::get('all-video-show/{id}',[ChannelContrller::class,'allVideoChannelShow']);
+            Route::post('video-store',[ChannelContrller::class,'userChannelVideoStore']);
+        });
+
+        Route::group(['prefix'=>'digital-store'],function(){
+            Route::get('manage',[DigitalStoreController::class,'digitalStoreManage'])->name('digital.store.manage');
+            Route::post('store',[DigitalStoreController::class,'userDigitalStore']);
+            Route::get('all',[DigitalStoreController::class,'userDigitalStoreAll']);
+            Route::get('all-template/{id}',[DigitalStoreController::class,'alltemplateDigital'])->name('digital.store.all.template');
+            Route::get('all-teplate-show/{id}',[DigitalStoreController::class,'alltemplateDigitalShow']);
+            Route::post('template-store',[DigitalStoreController::class,'userDigitalStoreTemplateStore']);
+        });
+        Route::group(['prefix'=>'library'],function(){
+            Route::get('manage',[LibraryController::class,'libraryManage'])->name('library.manage');
+            Route::post('store',[LibraryController::class,'userLibraryStore']);
+            Route::get('all',[LibraryController::class,'userLibraryAll']);
+            Route::get('all-book/{id}',[LibraryController::class,'allBookLibrary'])->name('library.all.book');
+            Route::get('all-book-show/{id}',[LibraryController::class,'allLibraryBookShow']);
+            Route::post('book-store',[LibraryController::class,'userLibraryBookStore']);
+        });
+        Route::group(['prefix'=>'podcast'],function(){
+            Route::get('manage',[PodcastController::class,'podcastManage'])->name('library.manage');
+            Route::post('store',[PodcastController::class,'podcastStore']);
+            Route::get('all',[PodcastController::class,'userPodcastAll']);
+            Route::get('all-audio/{id}',[PodcastController::class,'allPodcastAudio'])->name('podcast.all.audio');
+            Route::get('all-audio-show/{id}',[PodcastController::class,'allPodcastAudioShow']);
+            Route::post('audio-store',[PodcastController::class,'userPodcastAudioStore']);
+        });
+    });
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
