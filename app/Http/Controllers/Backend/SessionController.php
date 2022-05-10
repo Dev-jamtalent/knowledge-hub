@@ -12,12 +12,12 @@ class SessionController extends Controller
         session()->forget('jam');
         Session::put('jam','jamFlix');
         
-        return redirect()->back();
+        return redirect()->route('user.dashboard');
     }
     public function knowledgeHub(){
         session()->get('jam');
         session()->forget('jam');
         Session::put('jam','knowledgeHub');
-        return redirect()->back();
+        return redirect()->route('user.dashboard');
     }
 }

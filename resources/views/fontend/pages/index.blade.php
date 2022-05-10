@@ -95,7 +95,7 @@
                                         <a href="{{route('home.library.details',[$librariy->id,$librariy->slug])}}">{{$librariy->name}}</a>
                                     </div>
                                     <div class="v-views">
-                                         Downloads. 
+                                        1 Subscribes. 
                                     </div>
                                 </div>
                             </div>
@@ -152,6 +152,9 @@
                                     <div class="v-desc">
                                         <a href="{{route('home.channel.details',[$channel->id,$channel->slug])}}">{{$channel->name}}</a>
                                     </div>
+                                    <div class="v-views">
+                                        1 Subscribes. 
+                                    </div>
                                     
                                 </div>
                             </div>
@@ -204,6 +207,9 @@
                                     </div>
                                     <div class="v-desc">
                                         <a href="{{route('home.podcast.details',[$podcast->id,$podcast->slug])}}">{{$podcast->name}}</a>
+                                    </div>
+                                    <div class="v-views">
+                                        1 Subscribes. 
                                     </div>
                                     
                                 </div>
@@ -258,6 +264,9 @@
                                     <div class="v-desc">
                                         <a href="{{route('home.digitalstore.details',[$digitalStore->id,$digitalStore->slug])}}">{{$digitalStore->name}}</a>
                                     </div>
+                                    <div class="v-views">
+                                        1 Subscribes. 
+                                    </div>
                                     
                                 </div>
                             </div>
@@ -266,22 +275,7 @@
                     </div>
                 </div>
                 <!-- /Featured cast -->
-                <!-- pagination -->
-                <div class="v-pagination">
-                    <ul class="list-inline">
-                        <li class="v-pagination-prev"><a href="#"><i class="cv cvicon-cv-previous"></i></a></li>
-                        <li class="v-pagination-first"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="v-pagination-skin visible-xs"><a href="#">Skip 5 Pages</a></li>
-                        <li class="v-pagination-next"><a href="#"><i class="cv cvicon-cv-next"></i></a></li>
-                    </ul>
-                </div>
-                <!-- /pagination -->
+               
 
             </div>
         </div>

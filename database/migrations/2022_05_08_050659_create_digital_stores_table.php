@@ -23,6 +23,9 @@ class CreateDigitalStoresTable extends Migration
             $table->string('discount')->nullable();
             $table->string('icon')->nullable();
             $table->string('slug')->nullable();
+            $table->text('description')->nullable();
+            $table->string('category_id')->nullable();
+            $table->string('sub_category_id')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

@@ -79,9 +79,9 @@
                                                         
                                                         <select class="form-control  basic"  id="id" name="id">
                                                             @foreach(App\Models\Video::where('channel_id',null)->where('user_id',Auth::User()->id)->get() as $video)
-                                                    <option value="{{$video->id}}">{{$video->title}}</option>
-                                                    @endforeach
-                                            </select>
+                                                                <option value="{{$video->id}}">{{$video->title}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <button class="btn btn-primary submit-fn mt-2" id="addBtn" onclick="addData()" type="submit">Add Video</button>
@@ -175,7 +175,7 @@ console.log(id);
         $.ajax({
           type: "GET",
           dataType: "json",
-          url: "/user/flax-flix/channel/all-video-show/"+id,
+          url: "/user/flexflix/channel/all-video-show/"+id,
 
           success:function (response) {
             var data = "";
@@ -200,7 +200,7 @@ console.log(id);
       $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:"{{ url('/user/flax-flix/channel/video-store') }}",
+       url:"{{ url('/user/flexflix/channel/video-store') }}",
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',

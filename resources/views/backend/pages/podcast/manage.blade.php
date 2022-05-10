@@ -6,21 +6,22 @@
     show
 @endsection
 @section("body")
-	data-spy="scroll" data-target="#navSection" data-offset="140"
+    data-spy="scroll" data-target="#navSection" data-offset="140"
 @endsection
-
 @section("style")
-	
-	<!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link href="{{ asset('backend') }}/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link rel="{{ asset('backend') }}/stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css">
     <link href="{{ asset('backend') }}/assets/css/tables/table-basic.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/editors/markdown/simplemde.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/select2/select2.min.css">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 @endsection
 @section("wrapper")
-		  <div class="layout-px-spacing">
+          <div class="layout-px-spacing">
                 
                 <div class="row layout-top-spacing">
                 
@@ -31,8 +32,9 @@
                                     <thead>
                                         <tr>
                                             <th>Podcast Name</th>
-                                            <th>Audios</th>
+                                            <th> Audios</th>
                                             <th>Action</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -48,7 +50,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-sm-12  layout-spacing">
-                    	<div class="row layout-top-spacing">
+                        <div class="row layout-top-spacing">
 
                                 <div id="addChannel" class="col-lg-12 layout-spacing">
                                     <div class="statbox widget box box-shadow">
@@ -74,16 +76,41 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 mb-4">
-                                                        <label for="name">Podcast Image</label>
+                                                        <label for="name">Podcast Thumbnail</label>
                                                         <input type="file" name="image" id= "image" class="form-control">
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="name">Description</label>
+                                                        <textarea id="demo2" name="description"></textarea>
                                                         
                                                     </div>
-                                                    
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="id">Category</label>
+                                                        <select class="form-control  basic"  id="id" name="category_id">
+                                                                        @foreach(App\Models\UserAudioCategory::get() as $cat)
+                                                                <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="idSub">Sub Category</label>
+                                                        <select class="form-control  basic"  id="idSub" name="subcategory_id">
+                                                                        
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="idTag">Tags</label>
+                                                        <select class="form-control  basic" name="tag_names[]" id="idTag" multiple>
+                                                                        @foreach(App\Models\UserAudioTag::get() as $tag)
+                                                                <option value="{{$tag->audio_tag_name}}">{{$tag->audio_tag_name }}</option>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
                                                 <div class="col-md-12 mb-4">
-                                                    <label>Podcast Type</label>
+                                                    <label>Audio Type</label>
                                                     <div class="n-chk">
                                                         <label class="new-control new-radio radio-primary">
                                                           <input type="radio" class="new-control-input" name="price_type" onclick="hidePrice()" value="0" checked>
@@ -119,13 +146,14 @@
 
             </div>
 @endsection
-<script src="{{ asset('backend') }}/assets/js/jquery-2.2.4.min.js"></script>
-
-
 @section("script")
 <!--  BEGIN CUSTOM SCRIPTS FILE  -->
     <script src="{{ asset('backend') }}/assets/js/scrollspyNav.js"></script>
     <script src="{{ asset('backend') }}/assets/js/forms/bootstrap_validation/bs_validation_script.js"></script>
+    <script src="{{ asset('backend') }}/plugins/editors/markdown/simplemde.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/editors/markdown/custom-markdown.js"></script>
+    <script src="{{ asset('backend') }}/plugins/select2/select2.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/select2/custom-select2.js"></script>
     <!--  END CUSTOM SCRIPTS FILE  -->
 <script src="{{ asset('backend') }}/plugins/highlight/highlight.pack.js"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -163,11 +191,11 @@
     </script>
     
 <script type="text/javascript">
-	$('#addT').show();
+    $('#addT').show();
     $('#updateT').hide();
     $('#addBtn').show();
     $('#updateBtn').hide();
-	$.ajaxSetup({
+    $.ajaxSetup({
         headers:{
             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
         }
@@ -179,7 +207,7 @@
         //window.location.href=url;
      }
                 
-	function clearData(){
+    function clearData(){
       var name = $('#name').val('');
       var image = $('#image').val('');
      }
@@ -187,7 +215,7 @@
         $.ajax({
           type: "GET",
           dataType: "json",
-          url: "/user/flax-flix/podcast/all",
+          url: "/user/flexflix/podcast/all",
           success:function (response) {
             var data = "";
             $.each(response, function(key,value){
@@ -213,12 +241,12 @@
         })
       }
       allData()
-	
+    
 
       $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:"{{ url('/user/flax-flix/podcast/store') }}",
+       url:"{{ url('/user/flexflix/podcast/store') }}",
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -234,5 +262,34 @@
       })
      });
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select[name="category_id"]').on('change', function(){
+        var category_id = $(this).val();
+        if(category_id) {
+            $.ajax({
+                url: "{{  url('/user/book/category/ajax/') }}/"+category_id,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+                    console.log(data)
+                    $('select[name="subcategory_id"]').html('');
+                   var d =$('select[name="subcategory_id"]').empty();
+                      $.each(data, function(key, value){
 
+                          $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.book_sub_category_name + '</option>');
+
+                      });
+
+                },
+
+            });
+        } else {
+            alert('danger');
+        }
+
+    });
+
+});
+</script>
 @endsection

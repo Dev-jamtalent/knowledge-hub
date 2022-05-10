@@ -12,6 +12,8 @@ use Auth;
 use App\Models\DigitalStore;
 use App\Models\Template;
 use App\Models\DigitalStoreTemplate;
+use App\Models\DigitalstoreTag;
+use App\Models\UserTemplateTag;
 class DigitalStoreController extends Controller
 {
     public function digitalStoreManage(){
@@ -39,7 +41,29 @@ class DigitalStoreController extends Controller
             'price'                     => $request->price,
             'discount'                  => $request->discount,
             'slug'                      => $slug,
+            'description'               => $request->demo2,
+            'category_id'               => $request->id,
+            'sub_category_id'           => $request->subcategory_id,
         ]);
+        if ($request->tag_names) {
+                $tags = $request->tag_names;
+                foreach ($tags as $tag_name) {
+                    DigitalstoreTag::insert([
+                        'digital_store_id'      => $data,
+                        'tag_name'              => $tag_name,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                    $userTemplateTag = UserTemplateTag::where('templete_tag_name',$tag_name)->first();
+                    if($userTemplateTag == null){
+                        UserTemplateTag::insert([
+                        'user_id'              => Auth::user()->id,
+                        'templete_tag_name'              => $tag_name,
+                        'status'=> 1,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                    }
+                }
+            }
         return response()->json([
         'message' => 'DigitalStore Add successfully',
         'success' => true, 

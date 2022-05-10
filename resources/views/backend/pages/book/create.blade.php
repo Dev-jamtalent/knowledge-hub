@@ -122,11 +122,11 @@ Template
 		                                    	<label>Publish</label>
 		                                        <div class="n-chk">
 												    <label class="new-control new-radio radio-primary">
-												      <input type="radio" class="new-control-input" name="podcast" onclick="hideLibrary()" value="0" checked>
+												      <input type="radio" class="new-control-input" name="libarary" onclick="hideLibrary()" value="0" checked>
 												      <span class="new-control-indicator"></span>Publish On Now How
 												    </label>
 												    <label class="new-control new-radio radio-primary">
-												      <input type="radio" class="new-control-input" name="podcast" onclick="showLibrary()" value="1">
+												      <input type="radio" class="new-control-input" name="libarary" onclick="showLibrary()" value="1">
 												      <span class="new-control-indicator"></span>Publish On Now How & Flexflix
 												    </label>
 												</div>
@@ -134,6 +134,7 @@ Template
 	                                    	<div class="col-md-12 mb-4" id="library">
 	                                        <label for="title">Library Name</label>
 	                                        <select class="form-control  basic"  id="id" name="library_id">
+	                                        	<option>Select Library</option>
     													    @foreach(App\Models\Library::get() as $library)
 													<option value="{{$library->id}}">{{$library->name}}</option>
 													@endforeach

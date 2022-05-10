@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTempleteTagsTable extends Migration
+class CreateDigitalstoreTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTempleteTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('templete_tags', function (Blueprint $table) {
+        Schema::create('digitalstore_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('templete_id');
+            $table->integer('digital_store_id');
             $table->string('tag_name');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateTempleteTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('templete_tags');
+        Schema::dropIfExists('digitalstore_tags');
     }
 }

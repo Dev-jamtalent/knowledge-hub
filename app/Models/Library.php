@@ -13,4 +13,16 @@ class Library extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-}
+    public function category()
+    {
+        return $this->belongsTo('App\Models\UserBookCategory','category_id');
+    }
+    public function subCategory()
+    {
+        return $this->belongsTo('App\Models\UserBookSubCategory','sub_category_id');
+    }
+    public function tags()
+    {
+        return $this->hasMany(LibraryTag::class);
+    }
+}    

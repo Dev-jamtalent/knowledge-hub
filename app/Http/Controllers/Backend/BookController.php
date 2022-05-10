@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\BookImage;
 use App\Models\BookTag;
+use App\Models\UserBookTag;
+use App\Models\LibraryBook;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -46,7 +48,8 @@ class BookController extends Controller
             $file             = 'uploads/books/file/' . $fileName;
         }
         $book_id =  Book::insertGetId([
-            'user_id'             => Auth()->User()->instructor->id,
+            'user_id'                   => Auth()->User()->instructor->id,
+            'library_id'                => $request->library_id,
             'title'                     => $request->title,
             'description'               => $request->description,
             'image'                     => $save_image,
@@ -70,8 +73,25 @@ class BookController extends Controller
                     'tag_name'         => $tag_name,
                     'created_at'    => Carbon::now(),
                 ]);
+                $userBookTag = UserBookTag::where('book_tag_name',$tag_name)->first();
+                if($userBookTag == null){
+                        UserBookTag::insert([
+                        'user_id'              => Auth::user()->id,
+                        'book_tag_name'              => $tag_name,
+                        'status'=> 1,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                }
             }
         }
+        if ($request->libarary != 0) {
+                $data = LibraryBook::insert([
+                'book_id'               => $book_id,
+                'library_id'            => $request->library_id,
+                'created_at'            => Carbon::now(),
+            ]);
+        }
+
         return redirect()->back();
     }
 

@@ -77,6 +77,7 @@ Vidoe
 	                                    <div class="col-md-12 mb-4">
 	                                        <label for="idTag">Tags</label>
 	                                        <select class="form-control  basic" name="tag_names[]" id="idTag" multiple>
+
     													    @foreach(App\Models\UserVideoTag::get() as $tag)
 													<option value="{{$tag->id}}">{{$tag->video_tag_name}}</option>
 													@endforeach
@@ -130,23 +131,24 @@ Vidoe
 		                                    	<label>Publish</label>
 		                                        <div class="n-chk">
 												    <label class="new-control new-radio radio-primary">
-												      <input type="radio" class="new-control-input" name="podcast" onclick="hideChannel()" value="0" checked>
+												      <input type="radio" class="new-control-input" name="channel" onclick="hideChannel()" value="0" checked>
 												      <span class="new-control-indicator"></span>Publish On Now How
 												    </label>
 												    <label class="new-control new-radio radio-primary">
-												      <input type="radio" class="new-control-input" name="podcast" onclick="showChannel()" value="1">
+												      <input type="radio" class="new-control-input" name="channel" onclick="showChannel()" value="1">
 												      <span class="new-control-indicator"></span>Publish On Now How & Flexflix
 												    </label>
 												</div>
 	                                    	</div>
 	                                    	<div class="col-md-12 mb-4" id="channel">
 	                                        <label for="title">Channel Name</label>
-	                                        <select class="form-control  basic"  id="id" name="channel_id">
-    													    @foreach(App\Models\Channel::get() as $channel)
-													<option value="{{$channel->id}}">{{$channel->name}}</option>
-													@endforeach
-											</select>
-										</div>
+	                                        	<select class="form-control  basic"  id="id" name="channel_id">
+		                                        	<option value=""></option>
+	    													    @foreach(App\Models\Channel::get() as $channel)
+														<option value="{{$channel->id}}">{{$channel->name}}</option>
+														@endforeach
+												</select>
+											</div>
 	                           		<div class="col-md-12 mb-4">
 											<div class="">                                
 			                                    <div class="row">

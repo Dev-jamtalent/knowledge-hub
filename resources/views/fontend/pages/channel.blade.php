@@ -50,10 +50,7 @@
             <div class="col-lg-8 col-xs-12 col-sm-12">
                 <div class="sv-video">
                 	<img src="{{ asset($channel->image) }}" class="img-fluid"style="width:100%;height:100%;"  width="100%" height="100%" >
-                    <!-- <video poster="images/single-video.png" style="width:100%;height:100%;" controls="controls" width="100%" height="100%">
-                        <source src="videos/video-1.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
-                    </video> -->
-                    <!-- <span class="sv-play"><i class="cv cvicon-cv-play"></i></span> -->
+                    
                 </div>
                 <h1><a href="#">{{$channel->name}}</a></h1>
                 <div class="acide-panel acide-panel-top">
@@ -63,9 +60,9 @@
                 </div>
                 <div class="author">
                     <div class="author-head">
-                        <a href="#"><img src="images/channel-user.png" alt="" class="sv-avatar"></a>
+                        <a href="#"><img src="{{ asset($channel->user->profile_photo_path) }}" alt="" class="sv-avatar"></a>
                         <div class="sv-name">
-                            <div><a href="#">NaughtyDog</a> . 52 Videos</div>
+                            <div><a href="{{route('home.user.details',[$channel->user->id,$channel->user->slug])}}">{{$channel->user->name}}</a></div>
                             <div class="c-sub hidden-xs">
                                 <div class="c-f">
                                     Subscribe

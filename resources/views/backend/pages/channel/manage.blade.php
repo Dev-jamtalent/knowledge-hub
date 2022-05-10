@@ -17,6 +17,8 @@
     <link href="{{ asset('backend') }}/assets/css/tables/table-basic.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/editors/markdown/simplemde.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend') }}/plugins/select2/select2.min.css">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
 @endsection
 @section("wrapper")
@@ -80,9 +82,34 @@
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="name">Description</label>
+                                                        <textarea id="demo2" name="description"></textarea>
                                                         
                                                     </div>
-                                                    
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="id">Category</label>
+                                                        <select class="form-control  basic"  id="id" name="category_id">
+                                                                        @foreach(App\Models\UserVideoCategory::get() as $cat)
+                                                                <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="idSub">Sub Category</label>
+                                                        <select class="form-control  basic"  id="idSub" name="subcategory_id">
+                                                                        
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-4">
+                                                        <label for="idTag">Tags</label>
+                                                        <select class="form-control  basic" name="tag_names[]" id="idTag" multiple>
+                                                                        @foreach(App\Models\UserBookTag::get() as $tag)
+                                                                <option value="{{$tag->book_tag_name}}">{{$tag->book_tag_name}}</option>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
                                                 <div class="col-md-12 mb-4">
                                                     <label>Template Type</label>
                                                     <div class="n-chk">
@@ -120,13 +147,14 @@
 
             </div>
 @endsection
-<script src="{{ asset('backend') }}/assets/js/jquery-2.2.4.min.js"></script>
-
-
 @section("script")
 <!--  BEGIN CUSTOM SCRIPTS FILE  -->
     <script src="{{ asset('backend') }}/assets/js/scrollspyNav.js"></script>
     <script src="{{ asset('backend') }}/assets/js/forms/bootstrap_validation/bs_validation_script.js"></script>
+    <script src="{{ asset('backend') }}/plugins/editors/markdown/simplemde.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/editors/markdown/custom-markdown.js"></script>
+    <script src="{{ asset('backend') }}/plugins/select2/select2.min.js"></script>
+    <script src="{{ asset('backend') }}/plugins/select2/custom-select2.js"></script>
     <!--  END CUSTOM SCRIPTS FILE  -->
 <script src="{{ asset('backend') }}/plugins/highlight/highlight.pack.js"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -188,7 +216,7 @@
         $.ajax({
           type: "GET",
           dataType: "json",
-          url: "/user/flax-flix/channel/all",
+          url: "/user/flexflix/channel/all",
           success:function (response) {
             var data = "";
             $.each(response, function(key,value){
@@ -218,7 +246,7 @@
       $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:"{{ url('/user/flax-flix/channel/store') }}",
+       url:"{{ url('/user/flexflix/channel/store') }}",
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -234,5 +262,34 @@
       })
      });
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select[name="category_id"]').on('change', function(){
+        var category_id = $(this).val();
+        if(category_id) {
+            $.ajax({
+                url: "{{  url('/user/book/category/ajax/') }}/"+category_id,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+                    console.log(data)
+                    $('select[name="subcategory_id"]').html('');
+                   var d =$('select[name="subcategory_id"]').empty();
+                      $.each(data, function(key, value){
 
+                          $('select[name="subcategory_id"]').append('<option value="'+ value.id +'">' + value.book_sub_category_name + '</option>');
+
+                      });
+
+                },
+
+            });
+        } else {
+            alert('danger');
+        }
+
+    });
+
+});
+</script>
 @endsection

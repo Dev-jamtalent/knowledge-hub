@@ -10,6 +10,8 @@ use Intervention\Image\Facades\Image;
 use Cohensive\Embed\Facades\Embed;
 use App\Models\Audio;
 use App\Models\AudioTag;
+use App\Models\UserAudioTag;
+use App\Models\PodcastAudio;
 use File;
 use Auth;
 class AudioController extends Controller
@@ -54,7 +56,8 @@ class AudioController extends Controller
                 
             }
             $audio_id =  Audio::insertGetId([
-                'user_id'             => Auth()->User()->instructor->id,
+                'user_id'                   => Auth()->User()->instructor->id,
+                'podcast_id'                =>  $request->podcast_id,
                 'title'                     => $request->title,
                 'description'               => $request->description,
                 'image'                     => $save_image,
@@ -78,8 +81,24 @@ class AudioController extends Controller
                         'tag_name'              => $tag_name,
                         'created_at'            => Carbon::now(),
                     ]);
+                    $userAudioTag = UserAudioTag::where('audio_tag_name',$tag_name)->first();
+                    if($userAudioTag == null){
+                            UserAudioTag::insert([
+                            'user_id'              => Auth::user()->id,
+                            'audio_tag_name'              => $tag_name,
+                            'status'=> 1,
+                            'created_at'            => Carbon::now(),
+                        ]);
+                    }
                 }
             }
+            if ($request->podcast != 0) {
+                $data = PodcastAudio::insert([
+                'audio_id'                  => $audio_id,
+                'podcast_id'                => $request->podcast_id,
+                'created_at'                => Carbon::now(),
+            ]);
+        }
             return redirect()->back();       
     }
     public function delete($id){

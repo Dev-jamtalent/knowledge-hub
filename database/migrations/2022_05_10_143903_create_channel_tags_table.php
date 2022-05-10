@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserTempleteTagsTable extends Migration
+class CreateChannelTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateUserTempleteTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_templete_tags', function (Blueprint $table) {
+        Schema::create('channel_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('templete_tag_name');
-            $table->integer('status')->default(0);
+            $table->integer('channel_id');
+            $table->string('tag_name');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateUserTempleteTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_templete_tags');
+        Schema::dropIfExists('channel_tags');
     }
 }

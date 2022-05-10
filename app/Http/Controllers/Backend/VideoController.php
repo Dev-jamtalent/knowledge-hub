@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\VideoTag;
+use App\Models\UserVideoTag;
+use App\Models\ChannelVideo;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -92,8 +94,24 @@ class VideoController extends Controller
                         'tag_name'              => $tag_name,
                         'created_at'            => Carbon::now(),
                     ]);
+                    $userVideoTag = UserVideoTag::where('video_tag_name',$tag_name)->first();
+                    if($userBookTag == null){
+                            UserVideoTag::insert([
+                            'user_id'              => Auth::user()->id,
+                            'video_tag_name'              => $tag_name,
+                            'status'=> 1,
+                            'created_at'            => Carbon::now(),
+                        ]);
+                    }
                 }
             }
+            if ($request->channel != 0) {
+                $data = LibraryBook::insert([
+                'video_id'               => $video_id,
+                'library_id'            => $request->library_id,
+                'created_at'            => Carbon::now(),
+            ]);
+        }
             return redirect()->back();
             }
         

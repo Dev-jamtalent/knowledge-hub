@@ -77,7 +77,7 @@ Template
 	                                    <div class="col-md-12 mb-4">
 	                                        <label for="idTag">Tags</label>
 	                                        <select class="form-control  basic" name="tag_names[]" id="idTag" multiple>
-    													    @foreach(App\Models\UserTempleteTag::get() as $tag)
+    													    @foreach(App\Models\UserTemplateTag::get() as $tag)
 													<option value="{{$tag->id}}">{{$tag->templete_tag_name}}</option>
 													@endforeach
 											</select>
@@ -142,6 +142,7 @@ Template
 	                                   <div class="col-md-12 mb-4" id="digitalstore">
 	                                        <label for="title">Digitalstore Name</label>
 	                                        <select class="form-control  basic"  id="id" name="digital_store_id">
+	                                        	<option value="">Digitalstore Name</option>
     													    @foreach(App\Models\DigitalStore::get() as $digitalstore)
 													<option value="{{$digitalstore->id}}">{{$digitalstore->name}}</option>
 													@endforeach

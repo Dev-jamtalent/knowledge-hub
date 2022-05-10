@@ -270,7 +270,7 @@
                         <ul class="collapse submenu list-unstyled @yield('user-podcast-show')" id="Podcast" data-parent="#accordionExample">
                             
                             <li class="@yield('user-podcast-manage-active')">
-                                <a href="{{route('library.manage')}}"> mange </a>
+                                <a href="{{route('podcast.manage')}}"> mange </a>
                             </li>  
                             
                             

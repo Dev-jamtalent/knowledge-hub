@@ -12,6 +12,8 @@ use Auth;
 use App\Models\Channel;
 use App\Models\Video;
 use App\Models\ChannelVideo;
+use App\Models\ChannelTag;
+use App\Models\UserVideoTag;
 class ChannelContrller extends Controller
 {
     public function channelManage(){
@@ -37,7 +39,30 @@ class ChannelContrller extends Controller
             'price'                     => $request->price,
             'discount'                  => $request->discount,
             'slug'                      => $slug,
+            'description'               => $request->demo2,
+            'category_id'               => $request->id,
+            'sub_category_id'           => $request->subcategory_id,
         ]);
+        if ($request->tag_names) {
+            $tags = $request->tag_names;
+            foreach ($tags as $tag_name) {
+                ChannelTag::insert([
+                    'channel_id'              => $data,
+                    'tag_name'              => $tag_name,
+                    'created_at'            => Carbon::now(),
+                ]);
+                $userVideoTag = UserVideoTag::where('video_tag_name',$tag_name)->first();
+                if($userVideoTag == null){
+                        UserVideoTag::insert([
+                        'user_id'              => Auth::user()->id,
+                        'video_tag_name'       => $tag_name,
+                        'status'               => 1,
+                        'created_at'           => Carbon::now(),
+                    ]);
+                }
+            }
+        }
+
         return response()->json([
         'message' => 'Channel Add successfully',
         'success' => true, 

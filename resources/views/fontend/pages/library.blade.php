@@ -65,7 +65,7 @@
                     <div class="author-head">
                         <a href="#"><img src="{{ asset($library->user->profile_photo_path) }}" alt="" class="sv-avatar"></a>
                         <div class="sv-name">
-                            <div><a href="{{route('home.user.details',[$library->user->id,$library->user->slug])}}">{{$library->user->name}}</a> . 52 Videos</div>
+                            <div><a href="{{route('home.user.details',[$library->user->id,$library->user->slug])}}">{{$library->user->name}}</a> .</div>
                             <div class="c-sub hidden-xs">
                                 <div class="c-f">
                                     Subscribe
@@ -105,9 +105,9 @@
                                 <i class="cv cvicon-cv-share" data-toggle="tooltip" data-placement="top" title="Share"></i>
                                 <span>Share</span>
                             </a>
-                            <a href="#" data-tab="tab-3">
-                                <i class="cv cvicon-cv-download" data-toggle="tooltip" data-placement="top" title="Download"></i>
-                                <span>Download</span>
+                            <a href="#" >
+                                
+                                <span>Subscrive</span>
                             </a>
                             <a href="#" data-tab="tab-4">
                                 <i class="cv cv cvicon-cv-goto" data-toggle="tooltip" data-placement="top" title="Jump to"></i>
@@ -130,11 +130,22 @@
                             <!-- BEGIN tab-1 -->
                             <div class="tab-1">
                                 <div>
-                                    <h4>Cast:</h4>
-                                    <p>Nathan Drake , Victor Sullivan , Sam Drake , Elena Fisher</p>
+                                    
 
                                     <h4>Category :</h4>
-                                    <p>Gaming , PS4 Exclusive , Gameplay , 1080p</p>
+                                    <p>
+                                    {{$library->category->category_name}}
+                                    </p>
+                                    <h4>Sub-Category :</h4>
+                                    <p>
+                                    {{$library->subcategory->book_sub_category_name}}
+                                    </p>
+                                    <h4>Tags :</h4>
+                                    <p>
+                                    @foreach($library->tags as $tag)
+                                    {{$tag->tag_name}} ,
+                                    @endforeach
+                                    </p>
 
                                     <h4>About :</h4>
                                     <p>Three years after the events of Uncharted 3: Drake's Deception, Nathan Drake, now retired as a fortune hunter, has settled into a normal life with his wife Elena Fisher. His world is then turned upside down when his older brother Sam, long believed to be dead, suddenly reappears seeking Drake's help.</p>

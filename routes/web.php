@@ -262,7 +262,7 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth']], function(){
         }); 
     }); 
 
-    Route::group(['prefix'=>'flax-flix'],function(){
+    Route::group(['prefix'=>'flexflix'],function(){
         Route::group(['prefix'=>'channel'],function(){
             Route::get('manage',[ChannelContrller::class,'channelManage'])->name('channel.manage');
             Route::post('store',[ChannelContrller::class,'userChannelStore']);
@@ -290,7 +290,7 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth']], function(){
             Route::post('book-store',[LibraryController::class,'userLibraryBookStore']);
         });
         Route::group(['prefix'=>'podcast'],function(){
-            Route::get('manage',[PodcastController::class,'podcastManage'])->name('library.manage');
+            Route::get('manage',[PodcastController::class,'podcastManage'])->name('podcast.manage');
             Route::post('store',[PodcastController::class,'podcastStore']);
             Route::get('all',[PodcastController::class,'userPodcastAll']);
             Route::get('all-audio/{id}',[PodcastController::class,'allPodcastAudio'])->name('podcast.all.audio');

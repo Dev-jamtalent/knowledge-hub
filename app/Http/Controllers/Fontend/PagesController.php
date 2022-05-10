@@ -63,7 +63,7 @@ class PagesController extends Controller
         return view('fontend.pages.channel',compact('channel','channelVideos'));
     }
     public function podcast($id,$slug){
-        $podcast = Podcast::where('id',$id)->with('user')->first();
+        $podcast = Podcast::where('id',$id)->with('user','category','subcategory')->first();
         $podcastAudios = PodcastAudio::where('podcast_id',$id)->with('audio')->get();
         return view('fontend.pages.podcast',compact('podcast','podcastAudios'));
     }
@@ -75,8 +75,8 @@ class PagesController extends Controller
     }
 
     public function library($id,$slug){
-        $library = Library::where('id',$id)->with('user')->first();
-        $libraryBooks = LibraryBook::where('library_id',$id)->with('book')->get();
+        $library = Library::where('id',$id)->with('user','category','subcategory','tags')->first();
+        $libraryBooks = LibraryBook::where('library_id',$id)->with('book')->with('user','category','subcategory')->get();
         return view('fontend.pages.library',compact('library','libraryBooks'));
     }
 

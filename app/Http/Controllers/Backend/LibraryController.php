@@ -12,6 +12,8 @@ use Auth;
 use App\Models\Library;
 use App\Models\LibraryBook;
 use App\Models\Book;
+use App\Models\LibraryTag;
+use App\Models\UserBookTag;
 class LibraryController extends Controller
 {
     public function libraryManage(){
@@ -37,9 +39,35 @@ class LibraryController extends Controller
             'price'                     => $request->price,
             'discount'                  => $request->discount,
             'slug'                      => $slug,
+            'description'               => $request->description,
+            'category_id'               => $request->category_id,
+            'sub_category_id'           => $request->subcategory_id,
+            'created_at'                => Carbon::now(),
         ]);
+
+        if ($request->tag_names) {
+            $tags = $request->tag_names;
+            foreach ($tags as $tag_name) {
+                LibraryTag::insert([
+                    'library_id'       => $data,
+                    'tag_name'         => $tag_name,
+                    'created_at'    => Carbon::now(),
+                ]);
+                $userBookTag = UserBookTag::where('book_tag_name',$tag_name)->first();
+                if($userBookTag == null){
+                        UserBookTag::insert([
+                        'user_id'              => Auth::user()->id,
+                        'book_tag_name'              => $tag_name,
+                        'status'=> 1,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                }
+            }
+        }
+
+
         return response()->json([
-        'message' => 'Library Add successfully',
+        'message' => $data,
         'success' => true, 
     ], 201);
     }

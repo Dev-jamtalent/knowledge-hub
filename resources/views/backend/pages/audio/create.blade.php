@@ -152,6 +152,7 @@ Vidoe
 	                                    <div class="col-md-12 mb-4" id="podcast">
 	                                        <label for="title">Podcast Name</label>
 	                                        <select class="form-control  basic"  id="id" name="podcast_id">
+	                                        	<option value="">Podcast Name</option>
     													    @foreach(App\Models\Podcast::get() as $podcast)
 													<option value="{{$podcast->id}}">{{$podcast->name}}</option>
 													@endforeach

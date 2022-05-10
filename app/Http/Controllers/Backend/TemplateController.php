@@ -15,7 +15,8 @@ use Intervention\Image\Facades\Image;
 use Cohensive\Embed\Facades\Embed;
 use File;
 use Auth;
-use App\Models\UserTempleteTag;
+use App\Models\UserTemplateTag;
+use App\Models\DigitalStoreTemplate;
 
 
 class TemplateController extends Controller
@@ -55,6 +56,7 @@ class TemplateController extends Controller
     }
 
     public function store(Request $request){
+
         $save_image = null;
         $file = null;
         $video = null;
@@ -87,7 +89,8 @@ class TemplateController extends Controller
                 
             }
             $template_id =  Template::insertGetId([
-                'user_id'             => Auth()->User()->instructor->id,
+                'user_id'                   => Auth()->User()->instructor->id,
+                'digital_store_id'          => $request->digital_store_id,
                 'title'                     => $request->title,
                 'description'               => $request->description,
                 'image'                     => $save_image,
@@ -115,7 +118,23 @@ class TemplateController extends Controller
                         'template_tag_name'              => $tag_name,
                         'created_at'            => Carbon::now(),
                     ]);
+                    $userTemplateTag = UserTemplateTag::where('templete_tag_name',$tag_name)->first();
+                    if($userTemplateTag == null){
+                        UserTemplateTag::insert([
+                        'user_id'              => Auth::user()->id,
+                        'templete_tag_name'              => $tag_name,
+                        'status'=> 1,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                    }
                 }
+            }
+            if ($request->digital_store_id != null) {
+                $data = DigitalStoreTemplate::insert([
+                'template_id'                           => $template_id,
+                'digital_store_id'                      => $request->digital_store_id,
+                'created_at'                => Carbon::now(),
+            ]);
             }
             return redirect()->back();       
     }

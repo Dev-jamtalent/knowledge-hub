@@ -12,6 +12,8 @@ use Auth;
 use App\Models\Podcast;
 use App\Models\PodcastAudio;
 use App\Models\Audio;
+use App\Models\PodcastTag;
+use App\Models\UserAudioTag;
 class PodcastController extends Controller
 {
     public function podcastManage(){
@@ -37,7 +39,29 @@ class PodcastController extends Controller
             'price'                     => $request->price,
             'discount'                  => $request->discount,
             'slug'                      => $slug,
+            'description'               => $request->description,
+            'category_id'               => $request->category_id,
+            'sub_category_id'           => $request->subcategory_id,
         ]);
+        if ($request->tag_names) {
+                $tags = $request->tag_names;
+                foreach ($tags as $tag_name) {
+                    PodcastTag::insert([
+                        'podcast_id'              => $data,
+                        'tag_name'              => $tag_name,
+                        'created_at'            => Carbon::now(),
+                    ]);
+                    $userAudioTag = UserAudioTag::where('audio_tag_name',$tag_name)->first();
+                    if($userAudioTag == null){
+                            UserAudioTag::insert([
+                            'user_id'              => Auth::user()->id,
+                            'audio_tag_name'              => $tag_name,
+                            'status'=> 1,
+                            'created_at'            => Carbon::now(),
+                        ]);
+                    }
+                }
+            }
         return response()->json([
         'message' => 'Podcast Add successfully',
         'success' => true, 
